@@ -4,8 +4,7 @@
   "version": "1.0.0",
   "description": "Access your iAM360 fitness record: wearable data, meals, workouts, challenges and journal.",
   "author": {
-    "name": "iAM360",
-    "email": "briandouglasfitonline@gmail.com"
+    "name": "iAM360"
   },
   "homepage": "https://app.iam360.ai/docs/mcp",
   "repository": "https://github.com/iam360-ai/iam360-mcp-connector",

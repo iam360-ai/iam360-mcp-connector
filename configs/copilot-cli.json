@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "iam360": {
+      "type": "http",
+      "url": "https://app.iam360.ai/api/mcp",
+      "tools": [
+        "*"
+      ]
+    }
+  }
+}

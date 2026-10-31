@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "iam360": {
+      "httpUrl": "https://app.iam360.ai/api/mcp",
+      "oauth": {
+        "enabled": true,
+        "scopes": [
+          "fitness",
+          "offline_access"
+        ]
+      }
+    }
+  }
+}
