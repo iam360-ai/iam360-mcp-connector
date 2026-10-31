@@ -33,7 +33,7 @@ You do not need to clone this repository, run a local server or create an API ke
 | Claude Code | [CLI and browser sign-in](docs/clients/cli.md#claude-code) | [Project JSON](configs/claude-code.json) |
 | Codex | [CLI and TOML setup](docs/clients/cli.md#codex) | [TOML](configs/codex.toml) |
 | GitHub Copilot CLI | [CLI OAuth setup](docs/clients/cli.md#github-copilot-cli) | [JSON](configs/copilot-cli.json) |
-| Gemini CLI | [HTTP setup and OAuth](docs/clients/cli.md#gemini-cli) | [Settings JSON](configs/gemini-cli.json) |
+| Gemini CLI | [Install the extension and sign in](docs/clients/cli.md#gemini-cli) | [Extension manifest](gemini-extension.json) or [settings JSON](configs/gemini-cli.json) |
 | Cursor | [MCP settings or this plugin](docs/clients/editors.md#cursor) | [JSON](configs/cursor.json) |
 | VS Code with GitHub Copilot | [Add Server command or JSON](docs/clients/editors.md#vs-code-with-github-copilot) | [JSON](configs/vscode.json) |
 | Devin Local / Devin CLI | [Current vendor setup](docs/clients/editors.md#devin-local-devin-cli-and-windsurf-documentation) | [JSON](configs/devin.json) |
@@ -44,6 +44,16 @@ You do not need to clone this repository, run a local server or create an API ke
 Client instructions were checked against official documentation on **October 31, 2026**. Availability depends on the client's plan and workspace policies. See the [verification notes](docs/verification.md) for what was tested. These instructions describe custom connections; they do not claim approval in any client's public marketplace.
 
 **Keep existing configuration:** merge the `iam360` entry into your client's file. Do not replace the whole file if it already contains other servers or settings. JSON keys differ by client; use the matching example.
+
+### Gemini CLI extension
+
+First [create your iAM360 account](https://app.iam360.ai), or sign in if you already have one. Then install the extension from your terminal and review Gemini CLI's confirmation prompt:
+
+```sh
+gemini extensions install https://github.com/iam360-ai/iam360-mcp-connector
+```
+
+Start a new Gemini CLI session, run `/mcp auth iam360`, complete the browser sign-in and choose **Allow**, then return to Gemini CLI. The extension uses the hosted server with OAuth; [the setup guide](docs/clients/cli.md#gemini-cli) covers verification and existing configurations.
 
 ## What you can do
 
@@ -93,7 +103,7 @@ The documentation, website and GitHub URLs are not MCP endpoints. Seeing `clerk.
 
 The server is [listed in the official MCP Registry](https://registry.modelcontextprotocol.io/v0.1/servers/ai.iam360.app%2Fiam360/versions/1.0.0) as `ai.iam360.app/iam360`, version `1.0.0`. Registry indexing and curated marketplace review are separate processes.
 
-This repository contains the remote connector, logo, client configurations and documentation. The hosted application's source code is not part of this package. The [Cursor manifest](.cursor-plugin/plugin.json) references [mcp.json](mcp.json); it adds no local execution hooks.
+This repository contains the remote connector, logo, client configurations and documentation. The hosted application's source code is not part of this package. The [Cursor manifest](.cursor-plugin/plugin.json) references [mcp.json](mcp.json), and the [Gemini CLI manifest](gemini-extension.json) configures the same hosted endpoint. Neither adds local execution hooks.
 
 ## Help and contributing
 

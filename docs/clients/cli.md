@@ -48,25 +48,29 @@ Sources: [Codex MCP guide](https://learn.chatgpt.com/docs/extend/mcp), [Codex MC
 
 ## Gemini CLI
 
+First [create your iAM360 account](https://app.iam360.ai), or sign in if you already have one. Install this repository as an extension from your terminal:
+
 ```sh
-gemini mcp add --scope user --transport http iam360 https://app.iam360.ai/api/mcp
+gemini extensions install https://github.com/iam360-ai/iam360-mcp-connector
 gemini
 ```
 
-Inside Gemini CLI:
+Review the installation confirmation. Start a new Gemini CLI session if one was already running, then authenticate and check the connection:
 
 ```text
 /mcp auth iam360
 /mcp list
 ```
 
-For explicit scopes, merge [gemini-cli.json](../../configs/gemini-cli.json) into `~/.gemini/settings.json` instead of adding a second server. Its `httpUrl` selects Streamable HTTP. In Gemini's schema, `url` selects SSE and is not interchangeable.
+Complete iAM360's browser sign-in, review the requested access and choose **Allow**, then return to Gemini CLI. The [extension manifest](../../gemini-extension.json) requests `fitness` and `offline_access` and contains only the remote MCP configuration. It does not install a local iAM360 server or add execution hooks.
 
-The example enables OAuth and requests `fitness` plus `offline_access`. Discovery supplies the endpoints and client registration. A local browser and working loopback callback are needed; SSH/headless environments can require additional client setup.
+As an alternative to the extension, merge [gemini-cli.json](../../configs/gemini-cli.json) into `~/.gemini/settings.json`. It provides the same endpoint and scopes. Use one configuration path: an existing `mcpServers.iam360` entry in your settings takes precedence over the extension. Preserve other servers and settings.
 
-Do not add `--trust` just to get connected. This guide concerns Gemini CLI, not approval in Google's Connected Apps catalog.
+The `httpUrl` field selects Streamable HTTP; Gemini's `url` field selects SSE. OAuth discovery supplies the endpoints and client registration. A local browser and working loopback callback are needed; SSH/headless environments can require additional client setup. Keep tool approvals enabled.
 
-Source: [Gemini CLI MCP documentation](https://geminicli.com/docs/tools/mcp-server/).
+To update the extension, run `gemini extensions update iam360-mcp-connector` and start a new session. This setup does not imply approval in Google's Connected Apps catalog. Gemini CLI's gallery separately crawls public repositories tagged `gemini-cli-extension` daily and lists extensions that pass validation.
+
+Sources: [Gemini CLI extension reference](https://geminicli.com/docs/extensions/reference/), [MCP and OAuth documentation](https://geminicli.com/docs/tools/mcp-server/), [extension gallery indexing](https://geminicli.com/docs/extensions/releasing/).
 
 ## GitHub Copilot CLI
 

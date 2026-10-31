@@ -87,6 +87,16 @@ def main() -> int:
     }
     for name, value in expected.items():
         check(read_json(name) == value, f"{name}: expected documented client schema/endpoint")
+
+    gemini = read_json("gemini-extension.json")
+    check(set(gemini) == {"name", "version", "description", "mcpServers"}, "Gemini extension must contain only identity and remote MCP configuration")
+    check(gemini.get("name") == "iam360-mcp-connector", "Gemini extension name must match the repository directory")
+    check(isinstance(gemini.get("version"), str) and re.fullmatch(r"\d+\.\d+\.\d+", gemini["version"]) is not None, "Gemini extension version must use major.minor.patch")
+    check(isinstance(gemini.get("description"), str) and bool(gemini["description"].strip()), "Gemini extension must have a description")
+    check(gemini.get("mcpServers") == expected["configs/gemini-cli.json"]["mcpServers"], "Gemini extension must match the documented OAuth HTTP configuration without credentials or trust overrides")
+    for component in ["GEMINI.md", "hooks", "commands", "agents", "skills", "policies"]:
+        check(not (ROOT / component).exists(), f"remote-only Gemini extension must not add {component}")
+
     try:
         codex = tomllib.loads((ROOT / "configs/codex.toml").read_text())
         check(codex == {"mcp_servers": {"iam360": {"url": ENDPOINT, "scopes": ["fitness", "offline_access"]}}}, "Codex TOML differs from documented configuration")
@@ -165,7 +175,7 @@ def main() -> int:
         for error in errors:
             print(f"- {error}", file=sys.stderr)
         return 1
-    print(f"Validation passed: {len(expected) + 1} JSON/TOML connection configs, plugin/logo, {len(documents)} Markdown files and 27 tools.")
+    print(f"Validation passed: {len(expected) + 1} JSON/TOML connection configs, Gemini extension, Cursor plugin/logo, {len(documents)} Markdown files and 27 tools.")
     print("This check does not authenticate, test private tool calls or prove marketplace approval.")
     return 0
 

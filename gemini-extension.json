@@ -1,0 +1,17 @@
+{
+  "name": "iam360-mcp-connector",
+  "version": "1.0.0",
+  "description": "Connect Gemini CLI to your iAM360 fitness records: wearable measurements, nutrition, workouts, challenges and journal.",
+  "mcpServers": {
+    "iam360": {
+      "httpUrl": "https://app.iam360.ai/api/mcp",
+      "oauth": {
+        "enabled": true,
+        "scopes": [
+          "fitness",
+          "offline_access"
+        ]
+      }
+    }
+  }
+}
