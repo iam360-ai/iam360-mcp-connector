@@ -59,6 +59,7 @@ Useful public metadata:
 | --- | --- |
 | Protected resource | [Resource metadata](https://app.iam360.ai/.well-known/oauth-protected-resource/api/mcp) |
 | Authorization server | [Issuer metadata](https://clerk.iam360.ai/.well-known/oauth-authorization-server) |
+| Server Card (SEP-2127) | [Server Card](https://app.iam360.ai/api/mcp/server-card), listed in the [AI Catalog](https://app.iam360.ai/.well-known/ai-catalog.json) |
 | Full integration reference | [Authentication docs](https://app.iam360.ai/docs/mcp/authentication) |
 
 Use your MCP SDK's authorization implementation instead of hand-building authorization requests. This repository does not provide a stdio server, an API-key authentication mode, or an unattended service-account flow. A third-party bridge introduces its own installation, credential-storage and compatibility requirements; the documented clients here use native remote support.
