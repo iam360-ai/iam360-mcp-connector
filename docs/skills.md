@@ -13,7 +13,7 @@
 | [iam360-workouts](../skills/iam360-workouts/SKILL.md) | Exercise history, completed sessions and approved routines | Show my last five bench press sessions |
 | [iam360-habits-journal](../skills/iam360-habits-journal/SKILL.md) | Challenges, life events and private reflections | Show my current challenge tasks |
 
-The same four `skills/` folders are used by all clients. A skill is instructions, not an authenticated connection. It cannot read private records until you enable IAM360 and finish OAuth. The `fitness` scope permits both reads and writes; the skills preserve the distinction between a question, a draft and an authorized change. Keep your client's tool approvals enabled.
+The same four workflows are available in each client package. A skill is instructions, not an authenticated connection. It cannot read private records until you enable IAM360 and finish OAuth. The `fitness` scope permits both reads and writes; the skills preserve the distinction between a question, a draft and an authorized change. Keep your client's tool approvals enabled.
 
 ## Claude Code plugin
 
@@ -32,7 +32,7 @@ For clients with the separate marketplace workflow:
 
 Review the installation prompt, reload plugins or start a new session, then use `/mcp` to authenticate the plugin's IAM360 server. Plugin-provided server names can be namespaced, so select the entry shown in that panel rather than assuming it is the same as a manually added server.
 
-The plugin installs the four skills and the remote HTTP MCP configuration. Invoke a skill such as `/iam360:iam360-fitness-review`, or ask for the matching workflow naturally. If you already configured IAM360 manually, use one connection path to avoid duplicate tools. This company-hosted marketplace is separate from Anthropic's curated directory and does not assert directory approval.
+The marketplace installs the [self-contained Claude bundle](../plugins/iam360/README.md) from `plugins/iam360`, containing the four skills and the remote HTTP MCP configuration. Repository development tools and other clients' configurations are outside that bundle. Invoke a skill such as `/iam360:iam360-fitness-review`, or ask for the matching workflow naturally. If you already configured IAM360 manually, use one connection path to avoid duplicate tools. This company-hosted marketplace is separate from Anthropic's curated directory and does not assert directory approval.
 
 Sources: [Claude plugin installation](https://code.claude.com/docs/en/discover-plugins), [manifest reference](https://code.claude.com/docs/en/plugins-reference), [marketplace guide](https://code.claude.com/docs/en/plugin-marketplaces).
 

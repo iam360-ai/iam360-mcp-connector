@@ -115,7 +115,7 @@ The documentation, website and GitHub URLs are not MCP endpoints. Seeing `clerk.
 
 The server is [listed in the official MCP Registry](https://registry.modelcontextprotocol.io/v0.1/servers/ai.iam360.app%2Fiam360/versions/1.0.0) as `ai.iam360.app/iam360`, version `1.0.0`. Registry indexing and curated marketplace review are separate processes.
 
-This repository contains the remote connector, four agent skills, logo, client configurations and documentation. The hosted application's source code is not part of this package. The [Cursor manifest](.cursor-plugin/plugin.json), [Claude plugin](.claude-plugin/plugin.json) and [Gemini CLI manifest](gemini-extension.json) use the same hosted endpoint and shared `skills/` directory. The [Claude marketplace manifest](.claude-plugin/marketplace.json) makes the plugin installable directly from this repository. None adds local execution hooks.
+This repository contains the remote connector, four agent skills, logo, client configurations and documentation. The hosted application's source code is not part of this package. The [Cursor manifest](.cursor-plugin/plugin.json), [Claude runtime plugin](plugins/iam360/README.md) and [Gemini CLI manifest](gemini-extension.json) use the same hosted endpoint and four workflows. The [Claude marketplace manifest](.claude-plugin/marketplace.json) installs the self-contained `plugins/iam360` bundle. It contains the skills, remote connection, logo, license and README, without the repository's development tools or other clients' configuration files. The root [Claude manifest](.claude-plugin/plugin.json) remains available for existing direct-root setups. None adds local execution hooks.
 
 ## Help and contributing
 

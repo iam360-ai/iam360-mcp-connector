@@ -25,8 +25,13 @@ Validate the Claude package separately with a current Claude Code client:
 
 ```sh
 claude plugin validate . --strict
-claude plugin validate .claude-plugin/plugin.json --strict --profile directory
+claude plugin validate plugins/iam360 --strict --profile directory
+claude plugin validate .claude-plugin/plugin.json --strict
 ```
+
+The canonical skill sources are the root `skills/` folders. Copy an updated `SKILL.md` to the matching path under `plugins/iam360/skills/` in the same change. The validator requires identical skill, logo and license bytes, matching manifest metadata and MCP configuration, and an exact nine-file Claude runtime bundle. Do not copy the repository validator, other clients' configurations or Codex UI metadata into that bundle.
+
+For Claude directory submissions, set the plugin path to `plugins/iam360`. The root marketplace points there. The root `.claude-plugin/plugin.json` stays compatible with existing direct-root setups, but it is not the directory submission artifact. The bundle remains version `1.1.0`; the server registry record is unchanged.
 
 Keep the skill folders self-contained. Use current MCP names and input schemas, preserve read-versus-write intent, and do not add broad auto-approved tool permissions or execution hooks. Review ambiguous dates, missing data, uncertain write outcomes and journal replacement conflicts when changing a workflow.
 

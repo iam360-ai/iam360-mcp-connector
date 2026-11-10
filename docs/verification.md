@@ -15,7 +15,9 @@ This documentation was prepared on **October 31, 2026**. Client interfaces and p
 
 - Package version `1.1.0` adds four portable IAM360 skills and a Claude plugin with a company-hosted marketplace manifest. Cursor and Gemini CLI use the same skill folders.
 - Workflow names, parameter constraints and write semantics were checked against the current IAM360 MCP implementation. Live tool schemas remain authoritative.
-- Claude Code 2.1.321 strict manifest validation and its directory submission profile accepted the plugin and marketplace without warnings. This is local validation, not a directory submission or approval.
+- Claude Code 2.1.321 strict manifest validation and its directory submission profile accepted the plugin and marketplace without warnings. The `plugins/iam360` runtime bundle was then validated separately. These are local validation results, not directory approval.
+- Claude directory submissions use the self-contained `plugins/iam360` path. Its nine files contain only four skills, one remote MCP configuration, its manifest, logo, license and README. Repository development utilities and other-client configurations remain outside it. The root Claude manifest is retained for direct-root compatibility.
+- The package validator enforces exact copies of canonical skill, logo and license files, consistent manifest/MCP values and the runtime bundle's file allowlist.
 - Each skill passed the skill format validator. The package validator checks declared dependencies, relative file paths, supported tool references and instruction-only contents.
 - This update did not authenticate user accounts, run private production tools or prove every client's installation flow end to end.
 

@@ -123,7 +123,7 @@ def main() -> int:
     marketplace = read_json(".claude-plugin/marketplace.json")
     check(marketplace.get("name") == "iam360" and marketplace.get("owner") == {"name": "IAM360"}, "Claude marketplace must use IAM360 identity")
     entries = marketplace.get("plugins", [])
-    check(len(entries) == 1 and entries[0].get("name") == "iam360" and entries[0].get("source") == "./", "Claude marketplace must resolve the one plugin in this repository")
+    check(len(entries) == 1 and entries[0].get("name") == "iam360" and entries[0].get("source") == "./plugins/iam360", "Claude marketplace must resolve the runtime plugin bundle")
     try:
         logo = ROOT / manifest.get("logo", "")
         check(logo.resolve().is_relative_to(ROOT), "logo path must remain in repository")
@@ -194,6 +194,25 @@ def main() -> int:
         check(files == {"SKILL.md", "agents/openai.yaml"}, f"{name}: instruction-only skill has unexpected or missing files")
         check("\u2014" not in text, f"{name}: use punctuation without em dashes")
 
+    bundle = ROOT / "plugins/iam360"
+    bundle_manifest = read_json("plugins/iam360/.claude-plugin/plugin.json")
+    check(bundle_manifest == {**claude, "mcpServers": "./mcp.json"}, "Claude runtime manifest must match root plugin metadata and use its own MCP config")
+    check(read_json("plugins/iam360/mcp.json") == expected["configs/claude-code.json"], "Claude runtime MCP config must match the documented remote HTTP connection")
+    bundle_copies = {
+        "LICENSE": "LICENSE",
+        "assets/iam360.png": "assets/iam360.png",
+        **{f"skills/{name}/SKILL.md": f"skills/{name}/SKILL.md" for name in expected_skills},
+    }
+    expected_bundle_files = {".claude-plugin/plugin.json", "mcp.json", "README.md", *bundle_copies}
+    bundle_files = {path.relative_to(bundle).as_posix() for path in bundle.rglob("*") if path.is_file()}
+    check(bundle_files == expected_bundle_files, "Claude runtime bundle must contain only the manifest, remote MCP config, README, license, logo and four skills")
+    check(not any(path.is_symlink() for path in bundle.rglob("*")), "Claude runtime bundle must be self-contained, without symlinks")
+    for destination, source in bundle_copies.items():
+        try:
+            check((bundle / destination).read_bytes() == (ROOT / source).read_bytes(), f"Claude runtime copy differs from canonical source: {destination}")
+        except OSError as exc:
+            errors.append(f"Claude runtime copy: {exc}")
+
     public_files = [p for p in ROOT.rglob("*") if p.is_file() and ".git" not in p.parts and "__pycache__" not in p.parts]
     for path in public_files:
         check(path.suffix not in {".pem", ".key", ".p12", ".pfx", ".token"} and not path.name.startswith(".env"), f"credential-like file present: {path.relative_to(ROOT)}")
@@ -216,7 +235,7 @@ def main() -> int:
         for error in errors:
             print(f"- {error}", file=sys.stderr)
         return 1
-    print(f"Validation passed: {len(expected) + 1} JSON/TOML connection configs, Gemini extension, Cursor and Claude plugins, four skills, logo, {len(documents)} Markdown files and 27 tools.")
+    print(f"Validation passed: {len(expected) + 1} JSON/TOML connection configs, Gemini extension, Cursor and Claude plugins, minimal Claude runtime bundle, four skills, logo, {len(documents)} Markdown files and 27 tools.")
     print("This check does not authenticate, test private tool calls or prove marketplace approval.")
     return 0
 
