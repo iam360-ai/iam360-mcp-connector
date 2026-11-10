@@ -1,0 +1,14 @@
+{
+  "name": "iam360",
+  "description": "IAM360 fitness skills and MCP connector",
+  "owner": {
+    "name": "IAM360"
+  },
+  "plugins": [
+    {
+      "name": "iam360",
+      "source": "./",
+      "description": "Review your IAM360 fitness progress and manage meals, workouts, habits and journal with four agent skills and the hosted MCP connector."
+    }
+  ]
+}
