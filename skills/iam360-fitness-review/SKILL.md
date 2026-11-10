@@ -28,6 +28,7 @@ Request only the relevant section and time window. Do not call the overview when
 
 - Inspect `isError` and any `ok` or `error` field before using a result. Explain unavailable data without filling it with invented measurements.
 - In `get_daily_metrics`, map each row against the returned `columns` array. Do not rely on remembered column positions. Preserve units and the returned timezone.
+- `get_progress` uses rolling windows, not calendar months. For “this month” or a named month, fetch enough daily data, filter to the requested calendar dates in the account's timezone and report the actual coverage. Do not relabel a rolling 30-day result as a calendar-month result. If the requested dates exceed the available 90-day history or the daily data cannot support the requested goal calculation, explain that limit instead of substituting a different period silently.
 - Null is unknown, not zero. Report how many measured days support an average. Compare equivalent windows and state whether the current day is incomplete.
 - Use server-provided baselines, calibration states, readiness and load calculations as returned. A custom calculation should be labeled as your calculation and show its date range.
 - Wearable sessions and manually logged workouts can describe the same activity. Do not add both lists together as if every row were a unique workout.
@@ -42,7 +43,7 @@ Lead with the finding that answers the question, cite the dates and relevant mea
 Examples:
 
 - “Compare my sleep over the last seven days with the previous seven.” Read 14 days, separate the two windows and exclude unknown durations from each average.
-- “How am I progressing this month?” Use the 30-day progress result and its comparison period, preserving the goals and denominators returned.
+- “How am I progressing over the last 30 days?” Use the 30-day progress result and its comparison period, preserving the goals and denominators returned.
 - “Why did recovery fall?” Inspect the relevant recovery data and, if useful to the question, recorded patterns. Explain plausible associations without asserting a cause.
 
 Current parameters and result details: [MCP tool reference](https://app.iam360.ai/docs/mcp). Product information: [www.iam360.ai](https://www.iam360.ai).
