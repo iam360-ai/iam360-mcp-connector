@@ -1,0 +1,29 @@
+{
+  "name": "iam360",
+  "displayName": "IAM360",
+  "version": "1.1.0",
+  "description": "Review your IAM360 fitness progress and manage meals, workouts, habits and journal with four agent skills and the hosted MCP connector.",
+  "author": {
+    "name": "IAM360"
+  },
+  "homepage": "https://app.iam360.ai",
+  "repository": "https://github.com/iam360-ai/iam360-mcp-connector",
+  "license": "MIT",
+  "keywords": [
+    "iam360",
+    "mcp",
+    "fitness",
+    "wearables",
+    "nutrition",
+    "workouts",
+    "agent-skills",
+    "recovery",
+    "sleep"
+  ],
+  "mcpServers": "./configs/claude-code.json",
+  "icon": "./assets/iam360.png",
+  "documentationUrl": "https://app.iam360.ai/docs/mcp",
+  "supportUrl": "https://github.com/iam360-ai/iam360-mcp-connector/issues",
+  "privacyPolicyUrl": "https://app.iam360.ai/privacy",
+  "termsOfServiceUrl": "https://app.iam360.ai/terms"
+}
