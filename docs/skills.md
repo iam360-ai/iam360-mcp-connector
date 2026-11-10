@@ -44,7 +44,15 @@ For skills without the plugin, copy any complete `skills/iam360-*` folder into y
 
 Sources: [Cursor skills](https://cursor.com/docs/skills), [plugin discovery](https://cursor.com/docs/reference/plugins).
 
-## Codex
+## ChatGPT and Codex plugin bundle
+
+The [portable OpenAI bundle](../plugins/iam360-openai/README.md) combines the same four skills, their `agents/openai.yaml` metadata, the IAM360 logo and the hosted MCP connection. Its root `plugin.json` uses `extensions.com.openai` for listing metadata; fixed `skills/` and `mcp.json` paths identify its components. The instructions are exact copies of the canonical skills used by the other clients.
+
+This is source packaging, not a claim that the skills are approved or live in ChatGPT's public directory. Adding a custom MCP connection alone does not install the bundled skills. A publisher uploads this complete bundle to the existing OpenAI plugin as a new version when updates are available. Only one review can be active per plugin; preserve an active review and wait for its decision before uploading this update. The package omits existing private review details, test cases and video settings so an update preserves their saved dashboard values.
+
+Sources: [OpenAI plugin packaging](https://developers.openai.com/plugins/build/plugins), [skills with MCP dependencies](https://developers.openai.com/plugins/build/skills), [updating an existing plugin](https://developers.openai.com/plugins/deploy/submission#update-your-published-plugin).
+
+## Codex skill installation
 
 Configure and authenticate [IAM360 MCP in Codex](clients/cli.md#codex). Then ask the built-in skill installer to install the four skill folders from this repository, or copy the complete `skills/iam360-*` folders into your project's `.agents/skills/` or your user-level `~/.agents/skills/` directory. Do not overwrite an existing skill without reviewing it.
 

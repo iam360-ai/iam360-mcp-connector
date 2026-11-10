@@ -1,0 +1,11 @@
+interface:
+  display_name: "IAM360 Habits and Journal"
+  short_description: "Manage habits, events and private reflections"
+  default_prompt: "Use $iam360-habits-journal to review my current challenge tasks."
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "iam360"
+      description: "IAM360 fitness records, authorized by the account owner"
+      transport: "streamable_http"
+      url: "https://app.iam360.ai/api/mcp"

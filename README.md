@@ -65,7 +65,7 @@ For current Claude Code versions, install the skills and MCP connection together
 /plugin install iam360 --marketplace iam360-ai/iam360-mcp-connector
 ```
 
-Complete the IAM360 OAuth flow in `/mcp` after installation. This is IAM360's own repository marketplace, separate from a curated directory approval. [See all four skills and other installation methods](docs/skills.md).
+Complete the IAM360 OAuth flow in `/mcp` after installation. This is IAM360's own repository marketplace, separate from a curated directory approval. The [OpenAI plugin bundle](plugins/iam360-openai/README.md) packages the same four skills with their metadata and MCP connection for ChatGPT and Codex; its source availability does not establish public directory approval. [See all four skills and other installation methods](docs/skills.md).
 
 ## What you can do
 

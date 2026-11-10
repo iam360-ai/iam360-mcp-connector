@@ -213,6 +213,46 @@ def main() -> int:
         except OSError as exc:
             errors.append(f"Claude runtime copy: {exc}")
 
+    openai = ROOT / "plugins/iam360-openai"
+    openai_manifest = read_json("plugins/iam360-openai/plugin.json")
+    check(openai_manifest.get("$schema") == "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json", "OpenAI bundle must use the portable plugin schema")
+    check(openai_manifest.get("name") == "iam360" and openai_manifest.get("version") == "1.1.0", "OpenAI bundle must preserve identity and use the skills release version")
+    check(openai_manifest.get("author") == {"name": "IAM360", "url": "https://www.iam360.ai"}, "OpenAI publisher metadata must use IAM360")
+    check(openai_manifest.get("homepage") == "https://app.iam360.ai" and openai_manifest.get("repository") == REPOSITORY, "OpenAI product and repository links must be canonical")
+    check(openai_manifest.get("license") == "MIT", "OpenAI bundle must use the repository license")
+    check(set(openai_manifest) <= {"$schema", "name", "version", "description", "author", "homepage", "repository", "license", "keywords", "extensions"}, "OpenAI portable manifest must not contain legacy component overrides")
+    openai_extension = openai_manifest.get("extensions", {}).get("com.openai", {})
+    check(set(openai_extension) == {"interface", "publication"}, "OpenAI update must preserve existing review details by omitting them and must not add hooks or app references")
+    interface = openai_extension.get("interface", {})
+    for key, limit in [("displayName", 30), ("shortDescription", 30), ("longDescription", 4000), ("developerName", 80)]:
+        value = interface.get(key)
+        check(isinstance(value, str) and 0 < len(value) <= limit, f"OpenAI {key}: missing or outside the documented listing limit")
+    check(interface.get("displayName") == interface.get("developerName") == "IAM360", "OpenAI visible name must be IAM360")
+    check(interface.get("category") == "Productivity", "OpenAI bundle must preserve its existing dashboard category")
+    listing_urls = {"websiteURL": "https://app.iam360.ai", "supportURL": "https://app.iam360.ai/docs/mcp/connect", "privacyPolicyURL": "https://app.iam360.ai/privacy", "termsOfServiceURL": "https://app.iam360.ai/terms"}
+    for key, value in listing_urls.items():
+        check(interface.get(key) == value, f"OpenAI {key}: wrong listing URL")
+    for key in ["composerIcon", "logo"]:
+        check(interface.get(key) == "./assets/iam360.png", f"OpenAI {key}: must use the bundled brand icon")
+    prompts = interface.get("defaultPrompt", [])
+    check(isinstance(prompts, list) and 1 <= len(prompts) <= 3 and all(isinstance(p, str) and 0 < len(p) <= 128 and "@" not in p for p in prompts), "OpenAI starter prompts must match documented limits")
+    capabilities = interface.get("capabilities", [])
+    check(isinstance(capabilities, list) and len(capabilities) <= 20 and all(isinstance(c, str) and 0 < len(c) <= 120 for c in capabilities), "OpenAI capability labels must match documented limits")
+    release_notes = openai_extension.get("publication", {}).get("release_notes")
+    check(isinstance(release_notes, str) and bool(release_notes.strip()), "OpenAI skills update needs release notes")
+    openai_mcp = {"$schema": "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json", "mcpServers": {"iam360": {"type": "streamable-http", "url": ENDPOINT, "extensions": {"com.openai": {"auth": {"type": "oauth", "client": {"mode": "cimd"}, "baseScopes": ["fitness", "offline_access"], "resource": ENDPOINT}}}}}}
+    check(read_json("plugins/iam360-openai/mcp.json") == openai_mcp, "OpenAI MCP configuration must retain the existing remote endpoint and documented OAuth settings")
+    openai_copies = {"LICENSE": "LICENSE", "assets/iam360.png": "assets/iam360.png", **{f"skills/{name}/{file}": f"skills/{name}/{file}" for name in expected_skills for file in ["SKILL.md", "agents/openai.yaml"]}}
+    expected_openai_files = {"plugin.json", "mcp.json", "README.md", *openai_copies}
+    openai_files = {path.relative_to(openai).as_posix() for path in openai.rglob("*") if path.is_file()}
+    check(openai_files == expected_openai_files, "OpenAI runtime bundle must contain exactly four skills with metadata, manifest, MCP config, README, logo and license")
+    check(not any(path.is_symlink() for path in openai.rglob("*")), "OpenAI runtime bundle must be self-contained, without symlinks")
+    for destination, source in openai_copies.items():
+        try:
+            check((openai / destination).read_bytes() == (ROOT / source).read_bytes(), f"OpenAI runtime copy differs from canonical source: {destination}")
+        except OSError as exc:
+            errors.append(f"OpenAI runtime copy: {exc}")
+
     public_files = [p for p in ROOT.rglob("*") if p.is_file() and ".git" not in p.parts and "__pycache__" not in p.parts]
     for path in public_files:
         check(path.suffix not in {".pem", ".key", ".p12", ".pfx", ".token"} and not path.name.startswith(".env"), f"credential-like file present: {path.relative_to(ROOT)}")
@@ -235,7 +275,7 @@ def main() -> int:
         for error in errors:
             print(f"- {error}", file=sys.stderr)
         return 1
-    print(f"Validation passed: {len(expected) + 1} JSON/TOML connection configs, Gemini extension, Cursor and Claude plugins, minimal Claude runtime bundle, four skills, logo, {len(documents)} Markdown files and 27 tools.")
+    print(f"Validation passed: {len(expected) + 1} JSON/TOML connection configs, Gemini extension, Cursor and Claude plugins, Claude and OpenAI runtime bundles, four skills, logo, {len(documents)} Markdown files and 27 tools.")
     print("This check does not authenticate, test private tool calls or prove marketplace approval.")
     return 0
 

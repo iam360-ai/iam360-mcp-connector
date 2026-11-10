@@ -1,0 +1,11 @@
+interface:
+  display_name: "IAM360 Workouts"
+  short_description: "Review training and save requested workouts"
+  default_prompt: "Use $iam360-workouts to review my recent strength training."
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "iam360"
+      description: "IAM360 fitness records, authorized by the account owner"
+      transport: "streamable_http"
+      url: "https://app.iam360.ai/api/mcp"

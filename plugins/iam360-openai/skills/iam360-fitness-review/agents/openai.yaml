@@ -1,0 +1,11 @@
+interface:
+  display_name: "IAM360 Fitness Review"
+  short_description: "Review recovery, sleep and fitness progress"
+  default_prompt: "Use $iam360-fitness-review to review my last seven days of fitness progress."
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "iam360"
+      description: "IAM360 fitness records, authorized by the account owner"
+      transport: "streamable_http"
+      url: "https://app.iam360.ai/api/mcp"

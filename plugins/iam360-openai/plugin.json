@@ -1,0 +1,45 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "iam360",
+  "version": "1.1.0",
+  "description": "Four reusable workflows for reviewing and managing your IAM360 fitness, nutrition, workouts, habits and journal through its hosted MCP server.",
+  "author": {
+    "name": "IAM360",
+    "url": "https://www.iam360.ai"
+  },
+  "repository": "https://github.com/iam360-ai/iam360-mcp-connector",
+  "homepage": "https://app.iam360.ai",
+  "license": "MIT",
+  "keywords": ["fitness", "nutrition", "workouts", "wearables", "habits", "agent-skills", "mcp"],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "IAM360",
+        "shortDescription": "Your fitness in conversation",
+        "longDescription": "Start by creating an IAM360 account at https://app.iam360.ai, or sign in if you already have one. Connect that account to review and manage your fitness records in conversation. Four skills guide fitness reviews, nutrition tracking, workout records, and habits or journal entries. Read wearable sleep, recovery and activity measurements, compare recorded progress, review meals and exercise history, or save changes you request. Changes apply only to your connected IAM360 account. Wearable data requires an existing connected device and may be unavailable. The skills distinguish missing data from zero, preserve dates and units, and require your intent before changing records. This is a fitness and general wellness tool; it does not diagnose conditions or provide medical treatment. OAuth grants fitness read and write access, including supported deletions. Keep your assistant's tool confirmations enabled. Information returned to your assistant is handled under that provider's terms and your settings. Manage or revoke the connection and find data export and deletion instructions in IAM360's connection guide. Some planning features depend on existing account entitlements. The plugin does not sell subscriptions or process payments.",
+        "developerName": "IAM360",
+        "category": "Productivity",
+        "capabilities": [
+          "Review fitness and wearable data",
+          "Track meals and nutrition",
+          "Log and manage workouts",
+          "Manage challenges and journal entries"
+        ],
+        "websiteURL": "https://app.iam360.ai",
+        "supportURL": "https://app.iam360.ai/docs/mcp/connect",
+        "privacyPolicyURL": "https://app.iam360.ai/privacy",
+        "termsOfServiceURL": "https://app.iam360.ai/terms",
+        "defaultPrompt": [
+          "Compare my IAM360 sleep over the last two weeks.",
+          "Show my logged meals and nutrition totals today.",
+          "Show my current challenge tasks without changing them."
+        ],
+        "composerIcon": "./assets/iam360.png",
+        "logo": "./assets/iam360.png"
+      },
+      "publication": {
+        "release_notes": "Adds four reusable IAM360 skills for fitness reviews, nutrition, workouts, and habits or journal entries. Each skill uses the existing hosted MCP connection, respects the requested scope of access, and handles missing data and uncertain write outcomes. Adds matching skill display metadata and account-first setup. The MCP endpoint and OAuth configuration are unchanged."
+      }
+    }
+  }
+}

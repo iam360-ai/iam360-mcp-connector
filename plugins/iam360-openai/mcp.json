@@ -1,0 +1,24 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/mcp.schema.json",
+  "mcpServers": {
+    "iam360": {
+      "type": "streamable-http",
+      "url": "https://app.iam360.ai/api/mcp",
+      "extensions": {
+        "com.openai": {
+          "auth": {
+            "type": "oauth",
+            "client": {
+              "mode": "cimd"
+            },
+            "baseScopes": [
+              "fitness",
+              "offline_access"
+            ],
+            "resource": "https://app.iam360.ai/api/mcp"
+          }
+        }
+      }
+    }
+  }
+}

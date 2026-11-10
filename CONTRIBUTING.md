@@ -35,6 +35,8 @@ For Claude directory submissions, set the plugin path to `plugins/iam360`. The r
 
 Keep the skill folders self-contained. Use current MCP names and input schemas, preserve read-versus-write intent, and do not add broad auto-approved tool permissions or execution hooks. Review ambiguous dates, missing data, uncertain write outcomes and journal replacement conflicts when changing a workflow.
 
+The portable OpenAI bundle is `plugins/iam360-openai`. Copy both `SKILL.md` and `agents/openai.yaml` from each canonical skill into that bundle when either changes. Its thirteen files include four skills with metadata, the portable manifest, remote MCP configuration, logo, license and README. The package validator checks exact source copies, file allowlists, the documented listing fields and the unchanged OAuth configuration. It does not validate an authenticated installation or establish directory approval. ZIP only that directory's contents for an OpenAI upload. Keep an existing review active and upload the new version after the review decision; never create a duplicate plugin to work around a pending review.
+
 An optional public-link pass is available:
 
 ```sh

@@ -19,6 +19,7 @@ This documentation was prepared on **October 31, 2026**. Client interfaces and p
 - Claude directory submissions use the self-contained `plugins/iam360` path. Its nine files contain only four skills, one remote MCP configuration, its manifest, logo, license and README. Repository development utilities and other-client configurations remain outside it. The root Claude manifest is retained for direct-root compatibility.
 - The package validator enforces exact copies of canonical skill, logo and license files, consistent manifest/MCP values and the runtime bundle's file allowlist.
 - Each skill passed the skill format validator. The package validator checks declared dependencies, relative file paths, supported tool references and instruction-only contents.
+- The `plugins/iam360-openai` portable bundle packages those same four skills and their OpenAI display/dependency metadata, with the existing remote MCP and OAuth configuration. Its thirteen-file allowlist and exact copies are checked separately from the nine-file Claude bundle. Local schema and metadata checks do not replace OpenAI's upload scans or an authenticated skill activation test.
 - This update did not authenticate user accounts, run private production tools or prove every client's installation flow end to end.
 
 ## Limits of that verification
