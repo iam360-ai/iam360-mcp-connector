@@ -1,12 +1,12 @@
 {
   "name": "iam360",
-  "displayName": "iAM360",
-  "version": "1.0.0",
-  "description": "Access your iAM360 fitness record: wearable data, meals, workouts, challenges and journal.",
+  "displayName": "IAM360",
+  "version": "1.1.0",
+  "description": "Review your IAM360 fitness progress and manage meals, workouts, habits and journal with four agent skills and the hosted MCP connector.",
   "author": {
-    "name": "iAM360"
+    "name": "IAM360"
   },
-  "homepage": "https://app.iam360.ai/docs/mcp",
+  "homepage": "https://app.iam360.ai",
   "repository": "https://github.com/iam360-ai/iam360-mcp-connector",
   "license": "MIT",
   "keywords": [
@@ -15,7 +15,10 @@
     "fitness",
     "wearables",
     "nutrition",
-    "workouts"
+    "workouts",
+    "agent-skills",
+    "recovery",
+    "sleep"
   ],
   "logo": "assets/iam360.png",
   "mcpServers": "mcp.json"
