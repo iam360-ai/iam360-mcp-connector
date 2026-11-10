@@ -1,0 +1,11 @@
+interface:
+  display_name: "IAM360 Nutrition"
+  short_description: "Read, log and correct your IAM360 meals"
+  default_prompt: "Use $iam360-nutrition to show my logged meals and nutrition totals today."
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "iam360"
+      description: "IAM360 fitness records, authorized by the account owner"
+      transport: "streamable_http"
+      url: "https://app.iam360.ai/api/mcp"

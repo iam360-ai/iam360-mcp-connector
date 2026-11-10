@@ -19,7 +19,16 @@ Python 3.11 or newer is needed only for this optional maintainer check, not for 
 python3 scripts/validate.py
 ```
 
-It checks client JSON/TOML shapes, endpoint consistency, the plugin/logo reference, Markdown code samples, local links/anchors, the 27-tool map and obvious credential-file hazards. It does not authenticate or call any private tool.
+It checks client JSON/TOML shapes, endpoint consistency, the Cursor and Claude manifests, skill metadata and tool references, logo reference, Markdown code samples, local links/anchors, the 27-tool map and obvious credential-file hazards. It does not authenticate or call any private tool.
+
+Validate the Claude package separately with a current Claude Code client:
+
+```sh
+claude plugin validate . --strict
+claude plugin validate .claude-plugin/plugin.json --strict --profile directory
+```
+
+Keep the skill folders self-contained. Use current MCP names and input schemas, preserve read-versus-write intent, and do not add broad auto-approved tool permissions or execution hooks. Review ambiguous dates, missing data, uncertain write outcomes and journal replacement conflicts when changing a workflow.
 
 An optional public-link pass is available:
 

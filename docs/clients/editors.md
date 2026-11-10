@@ -22,7 +22,7 @@ Merge [cursor.json](../../configs/cursor.json) into `~/.cursor/mcp.json` for you
 
 Open Cursor's **Customize / MCP** settings, enable iAM360 and complete the offered browser sign-in. Return to the editor and check its tool list.
 
-Alternatively, use this repository as a local Cursor plugin. Clone it, place its contents under `~/.cursor/plugins/local/iam360/` and restart Cursor. The included `.cursor-plugin/plugin.json` discovers the root `mcp.json` and committed logo. Choose either the plugin or the manual configuration to avoid duplicate tools.
+Alternatively, use this repository as a local Cursor plugin. Clone it, place its contents under `~/.cursor/plugins/local/iam360/` and restart Cursor. The included `.cursor-plugin/plugin.json` discovers the root `mcp.json`, committed logo and [four IAM360 skills](../skills.md). Choose either the plugin or the manual configuration to avoid duplicate tools.
 
 The plugin adds no local execution hooks. Its name may appear with a `plugin-` prefix in tool approval prompts. Installing it does not mean it has been approved for the public Cursor Marketplace.
 

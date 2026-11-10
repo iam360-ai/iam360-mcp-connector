@@ -8,6 +8,8 @@ These commands assume the named client is already installed and current. They re
 
 ## Claude Code
 
+For the connection plus all four IAM360 skills, use the [Claude plugin setup](../skills.md#claude-code-plugin). The manual option below adds the connection only. Choose one connection path to avoid duplicate tools.
+
 Add a connection for your user account:
 
 ```sh
@@ -62,7 +64,7 @@ Review the installation confirmation. Start a new Gemini CLI session if one was 
 /mcp list
 ```
 
-Complete iAM360's browser sign-in, review the requested access and choose **Allow**, then return to Gemini CLI. The [extension manifest](../../gemini-extension.json) requests `fitness` and `offline_access` and contains only the remote MCP configuration. It does not install a local iAM360 server or add execution hooks.
+Complete iAM360's browser sign-in, review the requested access and choose **Allow**, then return to Gemini CLI. The [extension manifest](../../gemini-extension.json) requests `fitness` and `offline_access`. The extension also includes [four IAM360 skills](../skills.md) from its `skills/` directory. It does not install a local iAM360 server or add execution hooks.
 
 As an alternative to the extension, merge [gemini-cli.json](../../configs/gemini-cli.json) into `~/.gemini/settings.json`. It provides the same endpoint and scopes. Use one configuration path: an existing `mcpServers.iam360` entry in your settings takes precedence over the extension. Preserve other servers and settings.
 

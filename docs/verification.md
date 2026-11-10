@@ -11,13 +11,21 @@ This documentation was prepared on **October 31, 2026**. Client interfaces and p
 - The committed brand icon is the app's public 512×512 PNG. Cursor's official template validator accepted the connector package.
 - The client examples and commands were checked against current official client documentation. Repository validation covers syntax, shapes, local links and tool catalog consistency.
 
+## Agent skills package, November 9, 2026
+
+- Package version `1.1.0` adds four portable IAM360 skills and a Claude plugin with a company-hosted marketplace manifest. Cursor and Gemini CLI use the same skill folders.
+- Workflow names, parameter constraints and write semantics were checked against the current IAM360 MCP implementation. Live tool schemas remain authoritative.
+- Claude Code 2.1.321 strict manifest validation and its directory submission profile accepted the plugin and marketplace without warnings. This is local validation, not a directory submission or approval.
+- Each skill passed the skill format validator. The package validator checks declared dependencies, relative file paths, supported tool references and instruction-only contents.
+- This update did not authenticate user accounts, run private production tools or prove every client's installation flow end to end.
+
 ## Limits of that verification
 
 These are documented custom-connection paths. A successful source/configuration review does not establish an end-to-end test of every listed client, account plan or workspace policy. The hosted tools are not all exercised by the repository validator.
 
 This repository makes no claim of approval in Claude, ChatGPT, Cursor, Grok, Muse or Google's public directories. Official MCP Registry indexing is separate from those curated review processes. Gemini CLI setup is separate from Google's Connected Apps program.
 
-The current server catalog is authoritative. The connector package's `1.0.0` version identifies this distribution; client documentation can be improved without changing the hosted server or the registry's immutable record.
+The current server catalog is authoritative. The connector package's `1.1.0` version identifies this skills distribution. It does not change the hosted server or the registry's immutable `1.0.0` record.
 
 ## Public sources of truth
 

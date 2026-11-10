@@ -29,7 +29,7 @@ No static API key or shared client secret is supplied by this repository. Modern
 
 The `fitness` scope includes **both read and write access**, including supported record deletion. There is no separate server-side read-only scope at present. If you want a read-only workflow, disable write tools in the client where supported and keep per-action approvals enabled. Client restrictions do not reduce the OAuth token's server-side authority.
 
-Tools use the authenticated account; a caller cannot select another account by adding a user ID argument. Tools cannot change account settings or expose WHOOP/Oura login credentials. Calls can disclose fitness records—including private journal text—to the assistant provider, so only ask for the information needed for your task.
+Tools use the authenticated account; a caller cannot select another account by adding a user ID argument. Tools cannot change account settings or expose WHOOP/Oura login credentials. Calls can disclose fitness records, including private journal text, to the assistant provider, so only ask for the information needed for your task.
 
 Some changes have effects beyond one field: replacing a routine changes the schedule; completing or abandoning a challenge affects related reminders and crew membership; deleting a workout reverses associated task completions. Review the [capability map](tools.md) and linked tool details before approving them.
 

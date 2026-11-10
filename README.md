@@ -1,4 +1,4 @@
-# iAM360 MCP connector
+# IAM360 MCP connector and agent skills
 
 <img src="assets/iam360.png" width="128" height="128" alt="iAM360 logo" />
 
@@ -6,7 +6,7 @@
 
 iAM360 connects your assistant to your wearable measurements, nutrition, workouts, challenges and journal. Ask it to look up your records, compare periods, or save a change you approve. The hosted server provides **27 tools: 12 read tools and 15 tools that create, update or delete records**.
 
-[Website](https://www.iam360.ai) · [Full tool reference](https://app.iam360.ai/docs/mcp) · [Connection help](docs/troubleshooting.md) · [Privacy](https://app.iam360.ai/privacy)
+[Agent skills](docs/skills.md) · [Website](https://www.iam360.ai) · [Full tool reference](https://app.iam360.ai/docs/mcp) · [Connection help](docs/troubleshooting.md) · [Privacy](https://app.iam360.ai/privacy)
 
 ## Connect in three steps
 
@@ -55,6 +55,18 @@ gemini extensions install https://github.com/iam360-ai/iam360-mcp-connector
 
 Start a new Gemini CLI session, run `/mcp auth iam360`, complete the browser sign-in and choose **Allow**, then return to Gemini CLI. The extension uses the hosted server with OAuth; [the setup guide](docs/clients/cli.md#gemini-cli) covers verification and existing configurations.
 
+## Add IAM360 agent skills
+
+Four portable skills help your assistant review fitness progress, manage meals, record workouts, and work with habits or journal entries. Start by [creating your IAM360 account](https://app.iam360.ai), then follow the [skill installation guide](docs/skills.md) for Claude Code, Codex, Cursor, Gemini CLI and other Agent Skills clients.
+
+For current Claude Code versions, install the skills and MCP connection together:
+
+```text
+/plugin install iam360 --marketplace iam360-ai/iam360-mcp-connector
+```
+
+Complete the IAM360 OAuth flow in `/mcp` after installation. This is IAM360's own repository marketplace, separate from a curated directory approval. [See all four skills and other installation methods](docs/skills.md).
+
 ## What you can do
 
 | Area | Examples |
@@ -82,7 +94,7 @@ Missing wearable values are unknown, not zero. Pattern associations are not proo
 
 The `fitness` authorization covers both reads and writes, including supported deletion actions. There is currently no separate server-side read-only scope. Keep your client's tool confirmations enabled and use its tool restrictions where available. [Understand OAuth and permissions](docs/authentication.md).
 
-The connector files are free and open source. An iAM360 account is required. Some hosted AI features—meal nutrition estimates and saving workout routines—require an [iAM360 plan in the app](https://app.iam360.ai/plans). Logging a meal with nutrition values you supply and other non-AI features do not require that AI plan. Your assistant provider may have separate charges or plan requirements.
+The connector files are free and open source. An iAM360 account is required. Some hosted AI features, including meal nutrition estimates and saving workout routines, require an [iAM360 plan in the app](https://app.iam360.ai/plans). Logging a meal with nutrition values you supply and other non-AI features do not require that AI plan. Your assistant provider may have separate charges or plan requirements.
 
 Turn off a connection in [iAM360 → Settings → AI agents](https://app.iam360.ai/dashboard/settings/agents) to block future tool calls within a minute. This does not erase records already received by the assistant. [Data controls and revocation](docs/authentication.md#disconnect-and-manage-your-data).
 
@@ -90,7 +102,7 @@ Turn off a connection in [iAM360 → Settings → AI agents](https://app.iam360.
 
 | Purpose | URL |
 | --- | --- |
-| **MCP endpoint — paste this into assistants** | `https://app.iam360.ai/api/mcp` |
+| **MCP endpoint: paste this into assistants** | `https://app.iam360.ai/api/mcp` |
 | Human-readable tool documentation | [app.iam360.ai/docs/mcp](https://app.iam360.ai/docs/mcp) |
 | Machine-readable documentation index | [app.iam360.ai/docs/llms.txt](https://app.iam360.ai/docs/llms.txt) |
 | Complete machine-readable reference | [app.iam360.ai/docs/llms-full.txt](https://app.iam360.ai/docs/llms-full.txt) |
@@ -103,7 +115,7 @@ The documentation, website and GitHub URLs are not MCP endpoints. Seeing `clerk.
 
 The server is [listed in the official MCP Registry](https://registry.modelcontextprotocol.io/v0.1/servers/ai.iam360.app%2Fiam360/versions/1.0.0) as `ai.iam360.app/iam360`, version `1.0.0`. Registry indexing and curated marketplace review are separate processes.
 
-This repository contains the remote connector, logo, client configurations and documentation. The hosted application's source code is not part of this package. The [Cursor manifest](.cursor-plugin/plugin.json) references [mcp.json](mcp.json), and the [Gemini CLI manifest](gemini-extension.json) configures the same hosted endpoint. Neither adds local execution hooks.
+This repository contains the remote connector, four agent skills, logo, client configurations and documentation. The hosted application's source code is not part of this package. The [Cursor manifest](.cursor-plugin/plugin.json), [Claude plugin](.claude-plugin/plugin.json) and [Gemini CLI manifest](gemini-extension.json) use the same hosted endpoint and shared `skills/` directory. The [Claude marketplace manifest](.claude-plugin/marketplace.json) makes the plugin installable directly from this repository. None adds local execution hooks.
 
 ## Help and contributing
 
